@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript">
+	function load4MatchresultIndex1(url,memberid,annualmatch){
+		var form = jQuery("<form>");
+        form.attr("style", "display:none");
+        form.attr("method", "post");
+        form.attr("action", url);
+        jQuery("body").append(form);
+		
+		var matchid = jQuery("#matchid").val();
+		var name = jQuery("#name").val();
+		
+        form.append(jQuery("<input type='hidden' name='matchapply.memberid' value='" + memberid + "'>"));
+        form.append(jQuery("<input type='hidden' name='matchapply.annualmatch' value='" + annualmatch + "'>"));
+        form.append(jQuery("<input type='hidden' name='matchapply.matchid' value='" + matchid + "'>"));
+        form.append(jQuery("<input type='hidden' name='matchapply.name' value='" + name + "'>"));
+        
+        form.submit();
+	}
+	
+	jQuery(function () {
+         jQuery("input[name='matchapply.annualmatch']").focus();
+    	 
+		 /*
+    	 var d = new Date();
+    	 var year = d.getFullYear();
+    	 jQuery("#annualmatch").val(year);
+		 */
+    	 
+    });
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4MatchresultIndex')">参赛结果管理</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+        <form method="get" action="$link.setAction('load4MatchresultIndex')">
+		<ul class="seachform">
+			<li>
+				<label>参赛年度：</label>
+				<input type="text" id="annualmatch" name="matchapply.annualmatch" class="scinput" style="width: 80px;" value="$!queryMatchapplyForm.matchapply.annualmatch"/>
+			</li>
+			<li>
+    			<label>参赛单位名称：</label>
+    			<input type="text" id="factname" name="matchapply.factname" class="scinput" style="width: 80px;" value="$!queryMatchapplyForm.matchapply.factname"/>
+            </li>
+			<li>
+    			<label>参赛项目：</label>
+    			<select id="matchid" name="matchapply.matchid" class="dfinput" style="width:150px;">
+    				<option value="0">--请选择--</option>
+    				#set($matchinfoList = $request.getAttribute("matchinfoList"))
+    				#foreach($matchinfo in $matchinfoList)
+    					#if($!matchinfo.id==$!queryMatchapplyForm.matchapply.matchid)
+    						<option value="$!matchinfo.id" selected="selected">$!matchinfo.name</option>
+    					#else
+    						<option value="$!matchinfo.id">$!matchinfo.name</option>
+    					#end
+    				#end
+    			</select>
+			</li>
+        	<li>
+				<label>作品名称：</label>
+				<input type="text" id="name" name="matchapply.name" title="关键字" class="scinput" value="$!queryMatchapplyForm.matchapply.name">
+			</li>
+            <li>
+				<label>&nbsp;</label>
+				<input name="" type="submit" class="scbtn" value="查询"/>
+			</li>
+		</ul>
+        </form>
+    </div>
+    <table class="tablelist">
+        <tr>
+            <th>编号</th>
+			<th>参赛年度</th>
+			<th>用户名</th>
+			<th>参赛单位名称</th>
+			<th>身份证号</th>
+            <th>性别</th>
+            <th>操作</th>
+        </tr>
+		<tbody>
+		#set($matchapplyList = $request.getAttribute("matchapplyList"))
+		#foreach($matchapply in $matchapplyList)
+		<tr>
+			<td>$!matchapply.memberid</td>
+			<td>$!matchapply.annualmatch</td>
+			<td>$!matchapply.accountid</td>
+			<td>$!matchapply.factname</td>
+			<td>$!matchapply.idcard</td>
+			<td>#if($!matchapply.sex==1)男#else女#end</td>
+			<td>
+				<a class="tablelink" href="javascript:;" onclick="load4MatchresultIndex1('$link.setAction('load4MatchresultIndex1')','$!matchapply.memberid','$!matchapply.annualmatch')">查看</a>
+            </td>
+        </tr>
+		#end
+		</tbody>
+    </table>
+    <div class="page" style="clear: both;">
+		#parse("/home/include/page.vm")
+    </div>
+	<script type="text/javascript">
+    	jQuery('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+</div>
+</body>
+</html>

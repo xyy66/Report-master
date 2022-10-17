@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+
+<form-validation>
+
+	<!--
+		This is a minimal Validator form file with a couple of examples.
+	-->
+
+	<global>
+
+		<!--
+			An example global constant <constant>
+			<constant-name>postalCode</constant-name>
+			<constant-value>^\d{5}\d*$</constant-value> </constant> end example
+		-->
+
+	</global>
+
+	<formset>
+		<!-- 后台登录验证 -->
+		<form name="loginForm">
+			<field property="accountid" depends="required">
+				<arg key="loginForm.accountid" />
+			</field>
+			<field property="password" depends="required">
+				<arg key="loginForm.password" />
+			</field>
+			<field property="imagecode" depends="required">
+				<arg key="loginForm.imagecode" />
+			</field>
+		</form>
+		
+		<form name="regMemberForm">
+			<field property="member.accountid"
+				depends="required,bytemaxlength">
+				<arg key="member.accountid" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.password"
+				depends="required">
+				<arg key="member.password" />
+			</field>
+			<field property="member.password_re"
+				depends="required">
+				<arg key="member.password_re" />
+			</field>
+			<field property="member.factname"
+				depends="required,bytemaxlength">
+				<arg key="member.factname" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+			<field property="member.sex"
+				depends="required,bytemaxlength">
+				<arg key="member.sex" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+			<field property="member.idcard"
+				depends="bytemaxlength">
+				<arg key="member.idcard" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.birthday"
+				depends="bytemaxlength">
+				<arg key="member.birthday" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.email"
+				depends="bytemaxlength">
+				<arg key="member.email" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.qq"
+				depends="bytemaxlength">
+				<arg key="member.qq" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.tel"
+				depends="bytemaxlength">
+				<arg key="member.tel" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.address"
+				depends="bytemaxlength">
+				<arg key="member.address" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="member.imagecode"
+				depends="required">
+				<arg key="member.imagecode" />
+			</field>
+		</form>
+		<form name="editMemberForm">
+			<field property="member.factname"
+				depends="required,bytemaxlength">
+				<arg key="member.factname" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>50</var-value>
+				</var>
+			</field>
+			<field property="member.sex"
+				depends="required,bytemaxlength">
+				<arg key="member.sex" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>1</var-value>
+				</var>
+			</field>
+			<field property="member.idcard"
+				depends="bytemaxlength">
+				<arg key="member.idcard" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.birthday"
+				depends="bytemaxlength">
+				<arg key="member.birthday" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.email"
+				depends="bytemaxlength">
+				<arg key="member.email" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.qq"
+				depends="bytemaxlength">
+				<arg key="member.qq" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.tel"
+				depends="bytemaxlength">
+				<arg key="member.tel" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>20</var-value>
+				</var>
+			</field>
+			<field property="member.address"
+				depends="bytemaxlength">
+				<arg key="member.address" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>100</var-value>
+				</var>
+			</field>
+			<field property="member.imagecode"
+				depends="required">
+				<arg key="member.imagecode" />
+			</field>
+		</form>
+		<form name="chgMemberPwdForm">
+			<field property="member.password"
+				depends="required">
+				<arg key="member.password" />
+			</field>
+			<field property="member.password_re"
+				depends="required">
+				<arg key="member.password_re" />
+			</field>
+			<field property="member.password_old"
+				depends="required">
+				<arg key="member.password_old" />
+			</field>
+		</form>
+		<form name="addMatchapplyForm">
+			<field property="matchapply.annualmatch"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.annualmatch" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<field property="matchapply.name"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.name" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.matchid"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.matchid" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<field property="matchapply.unitname"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.unitname" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.authors"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.authors" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.teachers"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.teachers" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>300</var-value>
+				</var>
+			</field>
+			<field property="matchapply.description"
+				depends="required">
+				<arg key="matchapply.description" />
+			</field>
+		</form>
+		<form name="modifyMatchapplyForm">
+			<field property="matchapply.id"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.id" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<field property="matchapply.annualmatch"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.annualmatch" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>4</var-value>
+				</var>
+			</field>
+			<field property="matchapply.name"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.name" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.matchid"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.matchid" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>10</var-value>
+				</var>
+			</field>
+			<field property="matchapply.unitname"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.unitname" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.authors"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.authors" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.teachers"
+				depends="required,bytemaxlength">
+				<arg key="matchapply.teachers" />
+				<arg1 name="bytemaxlength" key="${var:bytemaxlength}"
+					resource="false" />
+				<var>
+					<var-name>bytemaxlength</var-name>
+					<var-value>400</var-value>
+				</var>
+			</field>
+			<field property="matchapply.description"
+				depends="required">
+				<arg key="matchapply.description" />
+			</field>
+		</form>
+		
+
+	</formset>
+
+</form-validation>

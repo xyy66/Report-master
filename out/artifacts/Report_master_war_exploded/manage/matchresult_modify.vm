@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/calendar.config.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.config.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.all.min.js')"></script>
+<style type="text/css">
+.h3{padding:5px; background:#C5E3FA; font-size:14px; font-weight:bold;border-left: 5px #0099FF solid;}
+</style>
+<script type="text/javascript">
+jQuery(function () {
+     jQuery("input[name='matchapply.score']").focus();
+	 
+     jQuery("#form_do").submit(function(){
+		var score = jQuery("input[name='matchapply.score']");
+		var ispublish = jQuery("input[name='matchapply.ispublish']:checked");
+		var publishtime = jQuery("input[name='matchapply.publishtime']");
+		if(jQuery.trim(score.val())==''){
+			score.parent().find("span").remove().end().append("<span class='errorcolor'>比赛得分不能为空</span>");
+			score.focus();
+			return false;			
+		}else {
+			score.parent().find("span").remove().end();
+		}
+		if(ispublish.val()=='1'){
+			if(jQuery.trim(publishtime.val())==''){
+				publishtime.parent().find("span").remove().end().append("<span class='errorcolor'>发布时间不能为空</span>");
+				return false;	
+			}else {
+    			publishtime.parent().find("span").remove().end();
+    		}
+		}
+
+	});
+	
+});
+
+
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4MatchresultIndex')">参赛结果管理</a></li>
+            <li><a href="#">录入参赛结果</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		<form method='post' id="form_do" name="form_do" action="$link.setAction('modifyMatchresult')">
+		<div class="h3">
+			<span>参赛报名信息</span>
+		</div>
+		<ul class="forminfo">
+			<li>
+				<label>参赛年度：</label>
+				<span>$!modifyMatchresultForm.matchapply.annualmatch</span>
+			</li>
+			<li>
+				<label>参赛项目：</label>
+				<span>$!modifyMatchresultForm.matchapply.matchname</span>
+			</li>
+			<li>
+				<label>作品名称：</label>
+				<span>$!modifyMatchresultForm.matchapply.name</span>
+			</li>
+			<li>
+				<label>学校名称：</label>
+				<span>$!modifyMatchresultForm.matchapply.unitname</span>
+			</li>
+			<li>
+				<label>作者姓名：</label>
+				<span>$!modifyMatchresultForm.matchapply.authors</span>
+			</li>
+			<li>
+				<label>辅导老师：</label>
+				<span>$!modifyMatchresultForm.matchapply.teachers</span>
+			</li>
+			<li>
+				<label>报名状态：</label>
+				<span>
+					#if($!modifyMatchresultForm.matchapply.state==0)
+    					<span style='color: #3385ff;'>未提交</span> 
+    				#elseif($!modifyMatchresultForm.matchapply.state==1)
+    					<span style='color: #8A2BE2;'>已提交</span>
+    				#elseif($!modifyMatchresultForm.matchapply.state==2)
+    					<span style='color: #00FF00;'>审核通过</span>
+    				#elseif($!modifyMatchresultForm.matchapply.state==3)
+    					<span style='color: #FF0000;'>审核未通过</span>
+    				#end
+				</span>
+			</li>
+			<li>
+				<label>作品简述：</label>
+				<span style="display: flex;"><textarea id="description" readonly="readonly">$!modifyMatchresultForm.matchapply.description</textarea></span>
+			</li>
+			<li>
+				<label>附件资料：</label>
+				<span style="display: flex;"><a target="_blank" href="$!modifyMatchresultForm.matchapply.filepath" title="$!modifyMatchresultForm.matchapply.filename">$!modifyMatchresultForm.matchapply.filename</a></span>
+			</li>
+        </ul>
+		<div class="h3">
+			<span>录入参赛结果</span>
+		</div>
+		<ul class="forminfo" style="margin-top: 10px;">
+			<li>
+				<label>比赛得分<b>*</b>：</label>
+				<input type="text" name="matchapply.score" class="dfinput" style="width:100px;" value="$!modifyMatchresultForm.matchapply.score"/>
+			</li>
+			<li>
+				<label>比赛名次：</label>
+				<input type="text" name="matchapply.ranking" class="dfinput" style="width:200px;" value="$!modifyMatchresultForm.matchapply.ranking"/>
+			</li>
+			<li>
+				<label>比赛奖项：</label>
+				<textarea name="matchapply.awards" class="dfinput" style="width:600px;height:100px;">$!modifyMatchresultForm.matchapply.awards</textarea>
+			</li>
+			<li>
+				<label>是否发布：</label>
+				<label><input type="radio" name="matchapply.ispublish" value="1" #if($!modifyMatchresultForm.matchapply.ispublish==1) checked="checked" #end />立即发布&nbsp;</label>
+				<label><input type="radio" name="matchapply.ispublish" value="0" #if($!modifyMatchresultForm.matchapply.ispublish==0) checked="checked" #end />暂不发布</label>
+			</li>
+			<li>
+				<label>发布时间：</label>
+				<input type="text" class="dfinput" style="width:200px;" name="matchapply.publishtime" id="publishtime" readonly="readonly" value="$!modifyMatchresultForm.matchapply.publishtime" />
+                <script type="text/javascript">
+                    Calendar.setup({
+                        weekNumbers: true,
+                        inputField : "publishtime",
+                        trigger    : "publishtime",
+                        dateFormat: "%Y-%m-%d %H:%M:%S",
+                        showTime: true,
+                        minuteStep: 1,
+                        onSelect   : function() {this.hide();}
+                    });
+                </script>
+			</li>
+			<li>
+				<span class='errorcolor'>#errorMarkup()</span>
+            </li>
+			<li>
+				<label>&nbsp;</label>
+				<input type="hidden" name="matchapply.matchresultid" value="$!modifyMatchresultForm.matchapply.id" />
+    			<input type="submit" class="btn" id="submit" value="提 交">
+    			<input type="button" class="btn" id="back" value="返 回" onclick="javascript:history.back();" />
+			</li>
+        </ul>
+	   </form>
+	</div>
+</div>
+<script type="text/javascript">
+	var ue = UE.getEditor('description', {
+		toolbars: [
+            ['fullscreen']
+        ],
+        initialFrameWidth : 800,
+        initialFrameHeight: 400
+    });
+	ue.ready(function() {
+	    ue.setDisabled('fullscreen');
+	});
+</script>
+
+</body>
+</html>

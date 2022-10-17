@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="home.Member">
+	<typeAlias alias="member" type="com.report.home.bean.Member"/>
+	
+	<select id="home.MemberDao.selectMemberCount" parameterClass="string" resultClass="int">
+		select count(id) from t_member where accountid = #accountid#
+	</select>
+	
+	<insert id="home.MemberDao.insertMember" parameterClass="member">
+		insert into t_member(accountid,password,sex,factname,idcard,birthday,address,qq,email,tel,regtime)
+		values(#accountid#,#password#,#sex#,#factname#,#idcard#,#birthday#,#address#,#qq#,#email#,#tel#,UNIX_TIMESTAMP(NOW()))
+	</insert>
+	
+	<select id="home.MemberDao.selectMember" parameterClass="int" resultClass="member">
+		select a.id,a.accountid,a.password,a.factname,a.sex,a.idcard,a.birthday,a.qq,a.tel,a.email,a.address
+		from t_member a where a.id=#id# 
+	</select>
+	
+	<update id="home.MemberDao.updateMember" parameterClass="member">
+		update t_member set factname=#factname#,idcard=#idcard#,birthday=#birthday#,address=#address#,
+			qq=#qq#,email=#email#,tel=#tel#,updatetime=UNIX_TIMESTAMP(NOW())
+		where id=#id#
+	</update>
+	
+	<update id="home.MemberDao.updateMemberPwd" parameterClass="member">
+		update t_member set password=#password# where id=#id#
+	</update>
+	
+</sqlMap>

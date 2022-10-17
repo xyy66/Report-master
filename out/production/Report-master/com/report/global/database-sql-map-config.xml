@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- Properties属性配置文件，加载数据库连接信息 -->  
+	<properties resource="config/mysql.properties"/>  
+
+	<settings   
+		cacheModelsEnabled="true"      
+		enhancementEnabled="true"      
+		lazyLoadingEnabled="true"      
+		errorTracingEnabled="true"      
+		maxRequests="32"          
+		maxSessions="10"          
+		maxTransactions="5"          
+		useStatementNamespaces="false"   
+	/>  
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">  
+			<property name="JDBC.Driver" value="${mysql.driver}"/>  
+			<property name="JDBC.ConnectionURL" value="${mysql.url}"/>  
+			<property name="JDBC.Username" value="${mysql.username}"/>  
+			<property name="JDBC.Password" value="${mysql.password}"/>  
+		</dataSource>  
+	</transactionManager>
+
+	<sqlMap resource="com/report/home/dao/sqlmap/database/Home.xml" />
+	<sqlMap resource="com/report/home/dao/sqlmap/database/Member.xml" />
+	<sqlMap resource="com/report/home/dao/sqlmap/database/Login.xml" />
+	
+	
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Login.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/News.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Message.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Announce.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/About.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Website.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Menu.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Link.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Member.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/User.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Role.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Notice.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Matchtype.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Matchinfo.xml" />
+	<sqlMap resource="com/report/manage/dao/sqlmap/database/Matchapply.xml" />
+
+</sqlMapConfig>

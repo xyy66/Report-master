@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.config.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.all.min.js')"></script>
+<style type="text/css">
+.h3{padding:5px; background:#C5E3FA; font-size:14px; font-weight:bold;border-left: 5px #0099FF solid;}
+</style>
+
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4MatchinfoIndex')">参赛项目管理</a></li>
+            <li><a href="#">查看参赛项目</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		<div class="h3">
+			<span>参赛项目信息</span>
+		</div>
+		<ul class="forminfo">
+			<li>
+				<label>参赛年度：</label>
+				<span>$!matchinfo.annualmatch</span>
+			</li>
+			<li>
+				<label>参赛项目名称：</label>
+				<span>$!matchinfo.name</span>
+			</li>
+			<li>
+				<label>报名日期：</label>
+				<span>$!matchinfo.begindate &nbsp;至&nbsp;$!matchinfo.enddate</span>
+			</li>
+			<li>
+				<label>参赛类型：</label>
+				<span>$!matchinfo.matchtypename</span>
+			</li>
+			<li>
+				<label>主办单位：</label>
+				<span>$!matchinfo.optunitname</span>
+			</li>
+			<li>
+				<label>参赛简述：</label>
+				<span style="display: flex;"><textarea id="description" readonly="readonly">$!matchinfo.description</textarea></span>
+			</li>
+			<li>
+				<label>参赛详细说明：</label>
+				<span style="display: flex;"><textarea id="content" readonly="readonly">$!matchinfo.content</textarea></span>
+			</li>
+			<li>
+        		<input type="button" class="btn" id="back" value="返 回" onclick="javascript:history.back();" />
+            </li>
+        </ul>
+	</div>
+</div>
+<script type="text/javascript">
+	window.UEDITOR_HOME_URL = "ueditor/";
+	window.onload = function() {
+		UE.getEditor('description', {
+    		toolbars: [
+                ['fullscreen']
+            ],
+            initialFrameWidth : 800,
+            initialFrameHeight: 100,
+			readonly : true
+        });
+		UE.getEditor('content', {
+    		toolbars: [
+                ['fullscreen']
+            ],
+            initialFrameWidth : 800,
+            initialFrameHeight: 400,
+			readonly : true
+        });
+		
+    }
+
+</script>
+<script type="text/javascript">
+	var ue = UE.getEditor('description', {
+		toolbars: [
+            ['fullscreen']
+        ],
+        initialFrameWidth : 800,
+        initialFrameHeight: 100
+    });
+	var ue1 = UE.getEditor('content', {
+		toolbars: [
+            ['fullscreen']
+        ],
+        initialFrameWidth : 800,
+        initialFrameHeight: 400
+    });
+	ue.ready(function() {
+	    ue.setDisabled('fullscreen');
+	});
+	ue1.ready(function() {
+	    ue.setDisabled('fullscreen');
+	});
+</script>
+</body>
+</html>

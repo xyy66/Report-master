@@ -1,0 +1,4 @@
+<a href="$link.setAction('admin.do')">管理登录</a>
+<br />
+联系地址：$!globalInfo.cfg_address  电话：$!globalInfo.cfg_phone<br />
+$!globalInfo.cfg_powerby

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript">	
+	function submitBatch(url,str){
+		var obj = document.getElementsByName('key[]');
+		var menuids = getCheckValues();
+		if (!menuids){
+	        alert('请选择权限！');
+	        return false;
+	    }
+	    if (window.confirm(str)){
+	    	url = url+"&menuids="+menuids;
+	    	location.href = url;
+	    }
+	}
+	
+	jQuery(function(){
+        jQuery("input[name='key[]']").click(function(){
+			var menuid=jQuery(this).attr("menuid");
+			var menupid=jQuery(this).attr("menupid");
+            if(menupid=="0"){
+				if(jQuery(this).attr("checked")=="checked"){
+					jQuery("input[menupid='"+menuid+"']").attr("checked",true);
+                }else{
+                    jQuery("input[menupid='"+menuid+"']").attr("checked",false);
+                }
+            }
+    
+        });
+    });
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4RoleIndex')">用户类型管理</a></li>
+			<li><a href="#">权限设置</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+		<ul class="seachform">
+			<li>
+				<input type="button" onclick="submitBatch('$link.setAction('modifyRoleAccess').addQueryData('roleid',$!role.id)','权限选择好了吗？')" class="scbtn" value="提交">
+				<input type="button" class="scbtn" id="back" value="返 回" onclick="javascript:history.back();" />
+            </li>
+        </ul>
+    </div>
+	<table class="tablelist">
+        <tr>
+			<th width="5%"><input type="checkbox" id="check" /></th>
+            <th width="5%">编号</th>
+            <th class="aleft" width="40%">权限名称</th>
+			<th>更新时间</th>
+        </tr>
+		<tbody>
+		#set($menuList = $request.getAttribute("menuList"))
+		#foreach($menu in $menuList)
+		#set($subMenuList = $menu.subMenuList)
+		<tr>
+			<td><input type="checkbox" name="key[]" menuid="$!menu.id" menupid="$!menu.pid" value="$!menu.id" #if($menu.id==$menu.menuid) checked='checked' #end /></td>
+            <td>$!menu.id</td>
+			<td>$!menu.name</td>
+			<td>$!menu.updatetime</td>
+        </tr>
+		#foreach($subMenu in $subMenuList)
+		<tr>
+			<td><input style="margin-left: 20px;" type="checkbox" name="key[]" menuid="$!subMenu.id" menupid="$!subMenu.pid" value="$!subMenu.id" #if($subMenu.id==$subMenu.menuid) checked='checked' #end /></td>
+            <td>$!subMenu.id</td>
+			<td>&nbsp;&nbsp;├─$!subMenu.name</td>
+			<td>$!subMenu.updatetime</td>
+        </tr>
+		#end
+		#end
+		</tbody>
+    </table>
+    <div class="formbody">
+		<ul class="seachform">
+			<li>
+				<input type="button" onclick="submitBatch('$link.setAction('modifyRoleAccess').addQueryData('roleid',$!role.id)','权限选择好了吗？')" class="scbtn" value="提交">
+				<input type="button" class="scbtn" id="back" value="返 回" onclick="javascript:history.back();" />
+            </li>
+        </ul>
+    </div>
+	<div class="page" style="clear: both;"></div>
+	<script type="text/javascript">
+    	jQuery('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+</div>
+</body>
+</html>

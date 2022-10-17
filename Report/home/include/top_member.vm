@@ -1,0 +1,13 @@
+#set($loginInfo = $session.getAttribute($HOME_SESSION))
+#if($loginInfo)
+	<div>
+		<a href="$link.setAction('logout')">退出登录</a>
+		<a href="$link.setAction('load4MemberIndex')">会员中心</a>
+		<span>欢迎您，$!loginInfo.factname &nbsp</span>
+	</div>
+#else
+	<div>
+		<a href="$link.setAction('load4MemberReg')">会员注册</a>
+		<a href="$link.setAction('load4Login')">会员登录</a>
+	</div>
+#end

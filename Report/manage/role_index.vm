@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4RoleIndex')">用户类型管理</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+		<form method="get" action="$link.setAction('load4RoleIndex')">
+		<ul class="seachform">
+    		#set($istrash = $request.getAttribute("istrash"))
+			#if($istrash=="1")
+    			&nbsp;
+    		#else
+			<li>
+				<label>用户类型名称：</label>
+				<input type="text" name="role.name" title="关键字" class="scinput" value="$!queryRoleForm.role.name">
+            </li>
+			<li>
+				<label>&nbsp;</label>
+				<input name="" type="submit" class="scbtn" value="查询"/>
+			</li>
+			#end
+			<li>
+				#if($istrash=="1")
+        			<input type="button" onclick="goUrl('$link.setAction('load4RoleIndex')')"  class="scbtn" value="返回" />
+        		#else
+        			<input type="button" onclick="goUrl('$link.setAction('load4RoleAdd')')" class="scbtn" value="添加用户类型" />
+                    <input type="button" onclick="goUrl('$link.setAction('load4RoleIndex').addQueryData('istrash','1')')" class="scbtn" value="回收站" />
+        		#end
+            </li>
+        </ul>
+        </form>
+    </div>
+    <table class="tablelist">
+        <tr>
+            <th>编号</th>
+			<th>用户类型名称</th>
+			<th width="40%">用户类型描述</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+		<tbody>
+		#set($roleList = $request.getAttribute("roleList"))
+		#foreach($role in $roleList)
+		<tr>
+			<td>$!role.id</td>
+			<td>$!role.name</td>
+			<td>$!role.description</td>
+			<td>
+				#if($!role.isdisabled==0)
+                    <span style='color: green;'>正常</span> 
+				#else
+					<span style='color: red;'>禁用</span>
+				#end
+			</td>
+			<td>
+			#if($istrash=="1")
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('restoreRole').addQueryData('id',$!role.id)','确实要还原吗？')">还原</a>
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('removeRole').addQueryData('id',$!role.id)','该操作不可恢复，确实要删除吗？')">彻底删除</a>
+			#else
+				#if($!role.roletype==0)
+				<a class="tablelink" href="$link.setAction('load4RoleAccessModify').addQueryData('id',$!role.id)">权限设置</a>
+				<a class="tablelink" href="$link.setAction('load4RoleModify').addQueryData('id',$!role.id)">编辑</a>
+				#if($!role.isdisabled==0)
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('disabledRole').addQueryData('id',$!role.id)','确实要禁用吗？')">禁用</a>
+				#else
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('enableRole').addQueryData('id',$!role.id)','确实要启用吗？')">启用</a>
+				#end
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('trashRole').addQueryData('id',$!role.id)','确实要删除吗？')">删除</a>
+				#end
+			#end
+            </td>
+        </tr>
+		#end
+		</tbody>
+    </table>
+    <div class="page" style="clear: both;">
+		#parse("/home/include/page.vm")
+    </div>
+	<script type="text/javascript">
+    	jQuery('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+</div>
+</body>
+</html>

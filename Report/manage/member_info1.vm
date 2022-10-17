@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/calendar.config.js')"></script>
+<style type="text/css">
+.h3{padding:5px; background:#C5E3FA; font-size:14px; font-weight:bold;border-left: 5px #0099FF solid;}
+</style>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">查看用户信息</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		#set($member = $request.getAttribute("member"))
+		<div class="h3">
+			<span>基本资料</span>
+		</div>
+		<ul class="forminfo">
+			<li>
+				<label>账号：</label>
+				<span>$!member.accountid</span>
+			</li>
+			<li>
+				<label>用户名称：</label>
+				<span>$!member.factname</span>
+			</li>
+			<li>
+				<label>性别：</label>
+				<span>#if($!member.sex==1)男#else女#end</span>
+			</li>
+			<li>
+				<label>身份证号：</label>
+				<span>$!member.idcard</span>
+			</li>
+			<li>
+				<label>出生日期：</label>
+				<span>$!member.birthday</span>
+			</li>
+        </ul>
+		<div class="h3">
+			<span>联系方式</span>
+		</div>
+		<ul class="forminfo">
+			<li>
+				<label>邮箱：</label>
+				<span>$!member.email</span>
+			</li>
+			<li>
+				<label>QQ：</label>
+				<span>$!member.qq</span>
+			</li>
+			<li>
+				<label>电话：</label>
+				<span>$!member.tel</span>
+			</li>
+			<li>
+				<label>所在地：</label>
+				<span>$!member.address</span>
+			</li>
+        </ul>
+	</div>
+</div>
+
+
+</body>
+</html>

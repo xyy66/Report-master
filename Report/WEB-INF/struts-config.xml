@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+
+
+	<!-- ================================================ Form Bean Definitions -->
+
+	<form-beans>
+		<form-bean name="loginForm" type="org.apache.struts.validator.DynaValidatorForm">
+	        <form-property name="accountid" type="java.lang.String"/>
+	        <form-property name="password" type="java.lang.String"/>
+	        <form-property name="imagecode" type="java.lang.String"/>
+        </form-bean>
+        
+        <form-bean name="regMemberForm"
+			type="com.report.manage.form.MemberForm">
+		</form-bean>
+		<form-bean name="modifyMemberForm"
+			type="com.report.manage.form.MemberForm">
+		</form-bean>
+		<form-bean name="chgMemberPwdForm"
+			type="com.report.manage.form.MemberForm">
+		</form-bean>
+        <form-bean name="addMatchapplyForm"
+			type="com.report.manage.form.MatchapplyForm">
+		</form-bean>
+		<form-bean name="modifyMatchapplyForm"
+			type="com.report.manage.form.MatchapplyForm">
+		</form-bean>
+		<form-bean name="queryMatchapplyForm"
+			type="com.report.manage.form.MatchapplyForm">
+		</form-bean>
+	</form-beans>
+
+
+	<!--  ========================================= Global Exception Definitions  -->
+
+	<global-exceptions>
+		<exception
+	        key="request.invalid"
+	        type="com.css.base.BaseException"
+	        handler="com.css.base.BaseExceptionHandler"
+	        path="/error.do"/>
+	</global-exceptions>
+
+
+	<!-- =========================================== Global Forward Definitions -->
+
+	<global-forwards>
+		<!-- 全局信息提示页面转向 -->
+        <forward name="error" path="/error.do" />
+		<forward name="info" path="/info.do" />
+		<forward name="index" path="/index.do" redirect="true"/>
+	</global-forwards>
+
+
+	<!-- =========================================== Action Mapping Definitions -->
+
+	<action-mappings>
+
+		<action path="/error" forward="/sys_message.vm"/>
+		<action path="/info" forward="/sys_message.vm" />
+<!--		<action path="/index" forward="/load4Home.do"/>-->
+		<action path="/index" forward="/load4Admin.do"/>
+		<action path="/admin" forward="/load4Admin.do"/>
+		
+        <action
+        	path="/load4Admin"
+			type="com.report.home.action.AdminAction"
+			scope="request"
+			validate="false"
+			parameter="load4Admin">
+			<forward name="success" path="/manage/load4Login.do" redirect="true"/>
+        </action>
+		<action
+        	path="/load4Home"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4Home">
+			<forward name="success" path="/home/index.vm"/>
+        </action>
+        <action
+        	path="/load4Message"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4Message">
+			<forward name="success" path="/home/message_list.vm"/>
+        </action>
+        <action
+        	path="/showMessage"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="showMessage">
+			<forward name="success" path="/home/message.vm"/>
+        </action>
+        <action
+        	path="/load4News"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4News">
+			<forward name="success" path="/home/news_list.vm"/>
+        </action>
+        <action
+        	path="/showNews"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="showNews">
+			<forward name="success" path="/home/news.vm"/>
+        </action>
+        <action
+        	path="/load4About"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4About">
+			<forward name="success" path="/home/about.vm"/>
+        </action>
+        <action
+        	path="/load4WebAbout"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4WebAbout">
+			<forward name="success" path="/home/webabout.vm"/>
+        </action>
+        <action
+        	path="/load4Notice"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4Notice">
+			<forward name="success" path="/home/notice.vm"/>
+        </action>
+        <action
+        	path="/load4MemberReg"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			validate="false"
+			parameter="load4MemberReg">
+			<forward name="success" path="/home/member_reg.vm"/>
+        </action>
+        <action 
+			path="/verifyMember" 
+			type="com.report.home.action.MemberAction"
+			scope="request" 
+			parameter="verifyMember"
+			validate="false">
+		</action>
+		<action
+        	path="/regMember"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			input="/load4MemberReg.do"
+			name="regMemberForm"
+			validate="true"
+			parameter="regMember">
+			<forward name="failure" path="/home/member_reg.vm"/>
+        </action>
+        <action
+        	path="/load4Login"
+			type="com.report.home.action.LoginAction"
+			scope="request"
+			validate="false"
+			parameter="load4Login">
+			<forward name="success" path="/home/login.vm"/>
+        </action>
+        <action	path="/login"
+			type="com.report.home.action.LoginAction"
+			scope="request"
+			input="/load4Login.do"
+			name="loginForm"
+			validate="true"
+			parameter="login">
+			<forward name="failure" path="/home/login.vm"/>
+		</action>
+		<action
+        	path="/logout"
+			type="com.report.home.action.LoginAction"
+			scope="request"
+			validate="false"
+			parameter="logout">
+			<forward name="success" path="/load4Login.do" redirect="true"/>
+        </action>
+        <action
+        	path="/load4MemberIndex"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			validate="false"
+			parameter="load4MemberIndex">
+			<forward name="success" path="/home/member_index.vm"/>
+        </action>
+		<action
+        	path="/load4MemberChgPwd"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			validate="false"
+			parameter="load4MemberChgPwd">
+			<forward name="success" path="/home/member_chgpwd.vm"/>
+        </action>
+        <action
+        	path="/load4MemberModify"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			name="modifyMemberForm"
+			validate="false"
+			parameter="load4MemberModify">
+			<forward name="success" path="/home/member_modify.vm"/>
+        </action>
+        <action
+        	path="/modifyMember"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			input="/load4MemberModify.do"
+			name="modifyMemberForm"
+			validate="true"
+			parameter="modifyMember">
+			<forward name="failure" path="/home/member_modify.vm"/>
+        </action>
+        <action
+        	path="/chgMemberPwd"
+			type="com.report.home.action.MemberAction"
+			scope="request"
+			input="/load4MemberChgPwd.do"
+			name="chgMemberPwdForm"
+			validate="true"
+			parameter="chgMemberPwd">
+			<forward name="failure" path="/home/member_chgpwd.vm"/>
+        </action>
+        <action
+        	path="/showAnnounce"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="showAnnounce">
+			<forward name="success" path="/home/announce.vm"/>
+        </action>
+        <action
+        	path="/load4LatestAnnounce"
+			type="com.report.home.action.HomeAction"
+			scope="request"
+			validate="false"
+			parameter="load4LatestAnnounce">
+			<forward name="success" path="/home/announce_latest.vm"/>
+        </action>
+        <action
+        	path="/load4MatchapplyIndex"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			validate="false"
+			parameter="load4MatchapplyIndex">
+			<forward name="success" path="/home/matchapply_index.vm"/>
+        </action>
+        <action
+        	path="/load4MatchapplyAdd"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			name="addMatchapplyForm"
+			validate="false"
+			parameter="load4MatchapplyAdd">
+			<forward name="success" path="/home/matchapply_add.vm"/>
+        </action>
+        <action
+        	path="/addMatchapply"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			input="/load4MatchapplyAdd.do"
+			name="addMatchapplyForm"
+			validate="true"
+			parameter="addMatchapply">
+			<forward name="failure" path="/load4MatchapplyAdd.do"/>
+        </action>
+        <action
+        	path="/load4Matchapply"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			validate="false"
+			parameter="load4Matchapply">
+			<forward name="success" path="/home/matchapply_info.vm"/>
+        </action>
+        <action
+        	path="/load4MatchapplyModify"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			name="modifyMatchapplyForm"
+			validate="false"
+			parameter="load4MatchapplyModify">
+			<forward name="success" path="/home/matchapply_modify.vm"/>
+        </action>
+        <action
+        	path="/modifyMatchapply"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			input="/load4MatchapplyModify.do"
+			name="modifyMatchapplyForm"
+			validate="true"
+			parameter="modifyMatchapply">
+			<forward name="failure" path="/load4MatchapplyModify.do"/>
+        </action>
+        <action
+        	path="/removeMatchapply"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			validate="false"
+			parameter="removeMatchapply">
+        </action>
+        <action
+        	path="/load4MatchresultQuery"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			validate="false"
+			parameter="load4MatchresultQuery">
+			<forward name="success" path="/home/matchresult_query.vm"/>
+        </action>
+        <action
+        	path="/load4MatchresultIndex"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			name="queryMatchapplyForm"
+			validate="false"
+			parameter="load4MatchresultIndex">
+			<forward name="success" path="/home/matchresult_index.vm"/>
+        </action>
+        <action
+        	path="/load4Matchresult"
+			type="com.report.home.action.MatchapplyAction"
+			scope="request"
+			validate="false"
+			parameter="load4Matchresult">
+			<forward name="success" path="/home/matchresult_info.vm"/>
+        </action>
+        
+	</action-mappings>
+
+
+	<!-- ============================================= Controller Configuration -->
+
+	<!--<controller
+		processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>-->
+
+
+	<!-- ======================================== Message Resources Definitions -->
+
+	<message-resources parameter="resource.appResource" />
+
+
+	<!-- =============================================== Plug Ins Configuration -->
+
+
+	<!-- =================================================== Validator plugin -->
+
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml" />
+	</plug-in>
+
+	<!-- =================================================== AOP plugin -->
+	<!-- 自动加载interceptor-config.xml的信息 -->
+	<plug-in className="com.css.struts.aop.SAIFPlugin">
+		<set-property property="interceptor-config"
+			value="/WEB-INF/interceptor-config.xml"/>
+		<set-property value="UTF-8" property="encoding" />
+	</plug-in>
+	
+</struts-config>

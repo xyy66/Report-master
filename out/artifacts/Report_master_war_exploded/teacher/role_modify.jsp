@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript">
+jQuery(function () {
+     jQuery("input[name='role.name']").focus();
+	 
+     jQuery("#form_do").submit(function(){
+		var name = jQuery("input[name='role.name']");
+		if(jQuery.trim(name.val())==''){
+			name.parent().find("span").remove().end().append("<span class='errorcolor'>用户类型名称不能为空</span>");
+			name.focus();
+			return false;			
+		}else {
+			name.parent().find("span").remove().end();
+		}
+
+	});
+	
+});
+
+
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4RoleIndex')">用户类型管理</a></li>
+            <li><a href="#">修改用户类型</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		<form method='post' id="form_do" name="form_do" action="$link.setAction('modifyRole')">
+		<ul class="forminfo">
+            <li>
+				<label>用户类型名称：<b>*</b></label>
+				<input type="text" name="role.name" class="dfinput" style="width:300px;" value="$!modifyRoleForm.role.name"/>
+			</li>
+			<li>
+				<label>用户类型描述：</label>
+				<label><textarea name="role.description" class="dfinput" style="width:600px;height:100px;">$!modifyRoleForm.role.description</textarea></label>
+			</li>
+			<li>
+				<span class='errorcolor'>#errorMarkup()</span>
+            </li>
+            <li>
+				<input type="hidden" name="role.id" value="$!modifyRoleForm.role.id" />
+				<input name="" type="submit" class="btn" value="保存"/>
+				<input type="button" class="btn" value="返 回" onclick="javascript:history.back();" />
+			</li>
+        </ul>
+	   </form>
+	</div>
+</div>
+
+
+</body>
+</html>

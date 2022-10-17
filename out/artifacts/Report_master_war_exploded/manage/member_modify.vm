@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/calendar.config.js')"></script>
+<script type="text/javascript">
+jQuery(function () {
+     jQuery("input[name='member.factname']").focus();
+	 
+     jQuery("#form_do").submit(function(){
+		var factname = jQuery("input[name='member.factname']");
+		var email = jQuery("input[name='member.email']");
+		if(jQuery.trim(factname.val())==''){
+			factname.parent().find("span").remove().end().append("<span class='error'>用户名称不能为空</span>");
+			factname.focus();
+			return false;			
+		}else {
+			factname.parent().find("span").remove().end();
+		}
+		/*
+		if(jQuery.trim(email.val())==''){
+			email.parent().find("span").remove().end().append("<span class='error'>邮箱不能为空</span>");
+			email.focus();
+			return false;			
+		}else {
+			email.parent().find("span").remove().end();
+		}
+		*/
+
+	});
+	
+});
+
+
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="#">修改资料</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		<form method='post' id="form_do" name="form_do" action="$link.setAction('modifyMember')">
+		<ul class="forminfo">
+			<li>
+				<label>账号：</label>
+				<span>$!modifyMemberForm.member.accountid</span>
+			</li>
+			<li>
+				<label>用户名称：<b>*</b></label>
+				<input type="text" name="member.factname" class="dfinput" style="width:200px;" value="$!modifyMemberForm.member.factname"/>
+			</li>
+			<li>
+				<label>性别：</label>
+				<label style="width: 50px;"><input type="radio" name="member.sex" value="1" #if($!modifyMemberForm.member.sex==1) checked="checked" #end/>男&nbsp;</label>
+				<label style="width: 50px;"><input type="radio" name="member.sex" value="2" #if($!modifyMemberForm.member.sex==2) checked="checked" #end/>女</label>
+			</li>
+			<li>
+    			<label>身份证号：</label>
+    			<input type="text" name="member.idcard" class="dfinput" style="width:200px;"  value="$!modifyMemberForm.member.idcard"/>
+            </li>
+			<li>
+    			<label>出生日期：</label>
+				<input type="text" class="dfinput" style="width:100px;"  name="member.birthday" id="birthday" value="$!modifyMemberForm.member.birthday" readonly="readonly">
+                <script type="text/javascript">
+                    Calendar.setup({
+                        weekNumbers: true,
+                        inputField : "birthday",
+                        trigger    : "birthday",
+                        dateFormat: "%Y-%m-%d",
+                        showTime: true,
+                        minuteStep: 1,
+                        onSelect   : function() {this.hide();}
+                    });
+                </script>
+            </li>
+			<li>
+    			<label>邮箱地址：</label>
+				<input type="text" name="member.email" class="dfinput" style="width:500px;" value="$!modifyMemberForm.member.email"/>
+            </li>
+			<li>
+    			<label>QQ：</label>
+				<input type="text" name="member.qq" class="dfinput" style="width:300px;" value="$!modifyMemberForm.member.qq"/>
+            </li>
+			<li>
+    			<label>电话：</label>
+				<input type="text" name="member.tel" class="dfinput" style="width:300px;" value="$!modifyMemberForm.member.tel"/>
+            </li>
+			<li>
+    			<label>所在地：</label>
+				<label style="margin-bottom: 13px;"><textarea name="member.address" class="dfinput" style="width:600px;height:100px;">$!modifyMemberForm.member.address</textarea></label>
+            </li>
+			<li>
+				<span class='errorcolor'>#errorMarkup()</span>
+            </li>
+			<li>
+				<label>&nbsp;</label>
+				<input name="" type="submit" class="btn" value="保存"/>
+			</li>
+        </ul>
+	   </form>
+	</div>
+</div>
+
+
+</body>
+</html>

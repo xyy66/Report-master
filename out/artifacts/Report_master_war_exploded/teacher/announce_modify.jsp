@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link type="text/css" rel="stylesheet" href="$link.setRelative('/manage/css1/style.css')" />
+<link type="text/css" rel="stylesheet" href="$link.setRelative('/manage/css1/select.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery.form.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/calendar.config.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.config.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/ueditor/ueditor.all.min.js')"></script>
+<script type="text/javascript">
+	window.UEDITOR_HOME_URL = "ueditor/";
+	window.onload = function() {
+		UE.getEditor('content', {
+            initialFrameWidth : 800,
+            initialFrameHeight: 400
+        });
+    }
+
+</script>
+<script type="text/javascript">
+jQuery(function () {
+     jQuery("input[name='announce.title']").focus();
+	 
+     jQuery("#form_do").submit(function(){
+		var title = jQuery("input[name='announce.title']");
+		var starttime = jQuery("input[name='announce.starttime']");
+		var endtime = jQuery("input[name='announce.endtime']");
+		var content = jQuery("#content");
+		var ispublish = jQuery("input[name='announce.ispublish']:checked");
+		var publishtime = jQuery("input[name='announce.publishtime']");
+		if(jQuery.trim(title.val())==''){
+			title.parent().find("span").remove().end().append("<span class='errorcolor'>公告标题不能为空</span>");
+			title.focus();
+			return false;			
+		}else {
+			title.parent().find("span").remove().end();
+		}
+		if(jQuery.trim(starttime.val())==''){
+			starttime.parent().find("span").remove().end().append("<span class='errorcolor'>起始日期不能为空</span>");
+			starttime.focus();
+			return false;			
+		}else {
+			starttime.parent().find("span").remove().end();
+		}
+		if(jQuery.trim(endtime.val())==''){
+			endtime.parent().find("span").remove().end().append("<span class='errorcolor'>截止日期不能为空</span>");
+			endtime.focus();
+			return false;			
+		}else {
+			endtime.parent().find("span").remove().end();
+		}
+		if(!UE.getEditor('content').hasContents()){
+			content.parent().find("span").remove().end().append("<span class='errorcolor'>公告内容不能为空</span>");
+			content.focus();
+			return false;			
+		}else {
+			content.parent().find("span").remove().end();
+		}
+		if(ispublish.val()=='1'){
+			if(jQuery.trim(publishtime.val())==''){
+				publishtime.parent().find("span").remove().end().append("<span class='errorcolor'>发布时间不能为空</span>");
+				return false;	
+			}else {
+    			publishtime.parent().find("span").remove().end();
+    		}
+		}
+	});
+	
+});
+
+
+</script>
+</head>
+<body>
+<div class="main">
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4AnnounceIndex')">公告管理</a></li>
+            <li><a href="#">修改公告</a></li>
+        </ul>
+    </div>
+	<div class="formbody">
+		<form method='post' id="form_do" name="form_do" action="$link.setAction('modifyAnnounce')">
+		<ul class="forminfo">
+			<li>
+    			<label> 公告标题：<b>*</b></label>
+    			<input type="text" name="announce.title" class="dfinput" style="width:600px;" value="$!modifyAnnounceForm.announce.title"/>
+    		</li>
+    		<li>
+                <label> 起始日期：<b>*</b></label>
+                <input type="text" class="dfinput" style="width:300px;" name="announce.starttime" id="starttime" value="$!modifyAnnounceForm.announce.starttime" readonly="readonly"/>
+    			<span style="color: red;">*</span>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        weekNumbers: true,
+                        inputField : "starttime",
+                        trigger    : "starttime",
+                        dateFormat: "%Y-%m-%d %H:%M:%S",
+                        showTime: true,
+                        minuteStep: 1,
+                        onSelect   : function() {this.hide();}
+                    });
+                </script>
+            </li>
+            <li>
+                <label> 截止日期：<b>*</b></label>
+                <input type="text" class="dfinput" style="width:300px;" name="announce.endtime" id="endtime" value="$!modifyAnnounceForm.announce.endtime" readonly="readonly"/>
+                <span style="color: red;">*</span>
+                <script type="text/javascript">
+                    Calendar.setup({
+                        weekNumbers: true,
+                        inputField : "endtime",
+                        trigger    : "endtime",
+                        dateFormat: "%Y-%m-%d %H:%M:%S",
+                        showTime: true,
+                        minuteStep: 1,
+                        onSelect   : function() {this.hide();}
+                    });
+
+                </script>
+            </li>
+    		<li>
+    			<label> 公告内容：<b>*</b></label>
+    			<label><textarea name="announce.content" id="content">$!modifyAnnounceForm.announce.content</textarea></label>
+    		</li>		
+    		<li>
+    			<label> 是否发布：<b>*</b></label>
+				<label><input type="radio" name="announce.ispublish" value="1" #if($!modifyAnnounceForm.announce.ispublish==1) checked="checked" #end/>立即发布&nbsp;</label>
+				<label><input type="radio" name="announce.ispublish" value="0" #if($!modifyAnnounceForm.announce.ispublish==0) checked="checked" #end/>暂不发布</label>
+    		</li>
+    		<li>
+                <label> 发布时间：</label>
+                <input type="text" class="dfinput" style="width:300px;" name="announce.publishtime" id="publishtime" readonly="readonly" value="$!modifyAnnounceForm.announce.publishtime" />
+				#if($!modifyAnnounceForm.announce.ispublish==1) <span style="color: red;">*</span> #end
+                <script type="text/javascript">
+                    Calendar.setup({
+                        weekNumbers: true,
+                        inputField : "publishtime",
+                        trigger    : "publishtime",
+                        dateFormat: "%Y-%m-%d %H:%M:%S",
+                        showTime: true,
+                        minuteStep: 1,
+                        onSelect   : function() {this.hide();}
+                    });
+                </script>
+            </li>	
+			<li>
+				<span class='errorcolor'>#errorMarkup()</span>
+            </li>
+			<li>
+				<label>&nbsp;</label>
+				<input type="hidden" name="announce.id" value="$!modifyAnnounceForm.announce.id" />
+				<input name="" type="submit" class="btn" value="保存"/>
+				<input type="button" class="btn" value="返 回" onclick="javascript:history.back();" />
+			</li>
+        </ul>
+	   </form>
+	</div>
+</div>
+
+
+</body>
+</html>

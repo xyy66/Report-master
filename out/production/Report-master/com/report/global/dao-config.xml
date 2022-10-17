@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE daoConfig
+    PUBLIC "-//ibatis.apache.org//DTD DAO Configuration 2.0//EN"
+    "http://ibatis.apache.org/dtd/dao-2.dtd">
+
+<daoConfig>
+	<context>
+		<transactionManager type="SQLMAP">
+			<property name="SqlMapConfigResource" value="com/report/global/database-sql-map-config.xml" />
+		</transactionManager>
+		
+		<dao interface="com.report.home.dao.iface.HomeDao"
+			implementation="com.report.home.dao.sqlmap.HomeSqlMapDao" />
+		<dao interface="com.report.home.dao.iface.MemberDao"
+			implementation="com.report.home.dao.sqlmap.MemberSqlMapDao" />
+		<dao interface="com.report.home.dao.iface.LoginDao"
+			implementation="com.report.home.dao.sqlmap.LoginSqlMapDao" />
+			
+			
+		<dao interface="com.report.manage.dao.iface.LoginDao"
+			implementation="com.report.manage.dao.sqlmap.LoginSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.NewsDao"
+			implementation="com.report.manage.dao.sqlmap.NewsSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MessageDao"
+			implementation="com.report.manage.dao.sqlmap.MessageSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.AnnounceDao"
+			implementation="com.report.manage.dao.sqlmap.AnnounceSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.AboutDao"
+			implementation="com.report.manage.dao.sqlmap.AboutSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.WebsiteDao"
+			implementation="com.report.manage.dao.sqlmap.WebsiteSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MenuDao"
+			implementation="com.report.manage.dao.sqlmap.MenuSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.LinkDao"
+			implementation="com.report.manage.dao.sqlmap.LinkSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MemberDao"
+			implementation="com.report.manage.dao.sqlmap.MemberSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.UserDao"
+			implementation="com.report.manage.dao.sqlmap.UserSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.RoleDao"
+			implementation="com.report.manage.dao.sqlmap.RoleSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.NoticeDao"
+			implementation="com.report.manage.dao.sqlmap.NoticeSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MatchtypeDao"
+			implementation="com.report.manage.dao.sqlmap.MatchtypeSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MatchinfoDao"
+			implementation="com.report.manage.dao.sqlmap.MatchinfoSqlMapDao" />
+		<dao interface="com.report.manage.dao.iface.MatchapplyDao"
+			implementation="com.report.manage.dao.sqlmap.MatchapplySqlMapDao" />
+		    
+	</context>
+</daoConfig>

@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4MemberIndex')">用户管理</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+		<form method="get" action="$link.setAction('load4MemberIndex')">
+		<ul class="seachform">
+			<li>
+				<label>账号：</label>
+				<input type="text" name="member.accountid" class="scinput" style="width: 100px;" value="$!queryMemberForm.member.accountid">
+            </li>
+			<li>
+				<label>参赛单位名称：</label>
+				<input type="text" name="member.factname" class="scinput" style="width: 150px;" value="$!queryMemberForm.member.factname">
+            </li>
+			<li>
+				<label>&nbsp;</label>
+				<input name="" type="submit" class="scbtn" value="查询"/>
+			</li>
+        </ul>
+        </form>
+    </div>
+    <table class="tablelist">
+        <tr>
+            <th>编号</th>
+            <th>账号</th>
+			<th>参赛单位名称</th>
+			<th>性别</th>
+			<th>身份证号</th>
+            <th>状态</th>
+##			<th>最近登录时间</th>
+            <th>操作</th>
+        </tr>
+		<tbody>
+		#set($memberList = $request.getAttribute("memberList"))
+		#foreach($member in $memberList)
+		<tr>
+			<td>$!member.id</td>
+			<td>$!member.accountid</td>
+			<td>$!member.factname</td>
+			<td>#if($!member.sex==1)男#else女#end</td>
+			<td>$!member.idcard</td>
+			<td>
+				#if($!member.state==0)
+                    <span style='color: blue;'>未审批</span> 
+				#elseif($!member.state==1)
+					<span style='color: green;'>正常</span> 
+				#elseif($!member.state==2)
+					<span style='color: red;'>锁定</span>
+				#end
+			</td>
+##			<td>$!member.logintime</td>
+			<td>
+				<a class="tablelink" href="$link.setAction('load4MemberInfo').addQueryData('id',$!member.id)">查看</a>
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('resetMemberPwd').addQueryData('id',$!member.id)','确实要重置密码么？')">重置密码</a>
+				#if($!member.state==0)
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('auditMember').addQueryData('id',$!member.id)','确实要审批通过吗？')">审批</a>
+				#elseif($!member.state==1)
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('lockMember').addQueryData('id',$!member.id)','确实要锁定吗？')">锁定</a>
+				#elseif($!member.state==2)
+				<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('unLockMember').addQueryData('id',$!member.id)','确实要解锁吗？')">解锁</a>
+				#end
+			##end
+            </td>
+        </tr>
+		#end
+		</tbody>
+    </table>
+    <div class="page" style="clear: both;">
+		#parse("/home/include/page.vm")
+    </div>
+	<script type="text/javascript">
+    	jQuery('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+</div>
+</body>
+</html>

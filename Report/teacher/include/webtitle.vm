@@ -1,0 +1,3 @@
+##set($globalInfo = $session.getAttribute($GLOBAL_SESSION))
+##<title>$!globalInfo.cfg_webtitle - 管理系统</title>
+<title>中北大学大学生创新创业大赛 网上申报系统</title>

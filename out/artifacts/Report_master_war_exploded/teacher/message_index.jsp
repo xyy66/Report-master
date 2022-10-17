@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<link rel='stylesheet' type="text/css" href="$link.setRelative('/manage/css1/style.css')" />
+<script type="text/javascript" src="$link.setRelative('/manage/js/jquery-1.7.2.min.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/common.js')"></script>
+<script type="text/javascript" src="$link.setRelative('/manage/js/jBox.config.js')"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div class="main">
+	<div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="$link.setAction('load4MessageIndex')">通知管理</a></li>
+        </ul>
+    </div>
+    <div class="formbody">
+		<form method="get" action="$link.setAction('load4MessageIndex')">
+		<ul class="seachform">
+			#if($istrash=="1")
+				&nbsp;
+			#else
+			<li>
+				<label>通知标题：</label>
+				<input type="text" name="message.title" title="关键字" class="scinput" value="$!queryMessageForm.message.title">
+			</li>
+			<li>
+				<label>&nbsp;</label>
+				<input name="" type="submit" class="scbtn" value="查询"/>
+			</li>
+			#end
+			<li>
+				#set($istrash = $request.getAttribute("istrash"))
+				#if($istrash=="1")
+        			<input type="button" onclick="goUrl('$link.setAction('load4MessageIndex')')"  class="scbtn" value="返回" />
+        		#else
+        			<input type="button" onclick="goUrl('$link.setAction('load4MessageAdd')')" class="scbtn" value="添加通知" />
+                    <input type="button" onclick="goUrl('$link.setAction('load4MessageIndex').addQueryData('istrash','1')')" class="scbtn" value="回收站" />
+        		#end
+            </li>
+        </ul>
+        </form>
+    </div>
+    <div class="list">    
+        <table class="tablelist">
+            <tr>
+                <th>编号</th>
+                <th width="35%">通知标题</th>
+                <th>发布状态</th>
+                <th>发布时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+			<tbody>
+			#set($messageList = $request.getAttribute("messageList"))
+			#foreach($message in $messageList)
+			<tr>
+				<td>$!message.id</td>
+				<td>$!message.title</td>
+				<td>
+					#if($!message.ispublish==0) 
+                    <span style='color: blue;'>未发布</span> 
+					#else 
+                    <span style='color: green;'>已发布</span> 
+					#end
+				</td>
+				<td>$!message.publishtime</td>
+				<td>$!message.updatetime</td>
+				<td>
+					<a class="tablelink" href="$link.setAction('load4MessageInfo').addQueryData('id',$!message.id)">查看</a>
+				#if($istrash=="1")
+					<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('restoreMessage').addQueryData('id',$!message.id)','确实要还原吗？')">还原</a>
+					<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('removeMessage').addQueryData('id',$!message.id)','该操作不可恢复，确实要删除吗？')">彻底删除</a>
+				#else
+					<a class="tablelink" href="$link.setAction('load4MessageModify').addQueryData('id',$!message.id)">编辑</a>
+					<a class="tablelink" href="javascript:;" onclick="toConfirm('$link.setAction('trashMessage').addQueryData('id',$!message.id)','确实要删除吗？')">删除</a>
+				#end
+                </td>
+            </tr>
+			#end
+			</tbody>
+        </table>
+        <div class="page" style="clear: both;">
+			#parse("/home/include/page.vm")
+        </div>
+		<script type="text/javascript">
+        	jQuery('.tablelist tbody tr:odd').addClass('odd');
+        </script>
+    </div>
+</div>
+</body>
+</html>
